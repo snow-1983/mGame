@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>方块防线 Block Defense</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="hud" id="hud">
+      <div class="hud__stats">
+        <span>生命：<strong id="life">3</strong></span>
+        <span>金币：<strong id="gold">120</strong></span>
+        <span>波次：<strong id="wave">0</strong></span>
+      </div>
+      <div class="hud__actions">
+        <button id="help-button" class="ghost">玩法提示</button>
+        <button id="bestia-button" class="ghost">怪物图鉴</button>
+        <button id="restart-button" class="ghost">重新开始 (R)</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="board-wrapper">
+        <canvas id="board" width="960" height="640"></canvas>
+        <div id="message" class="message hidden"></div>
+      </section>
+
+      <aside class="toolbar" id="toolbar">
+        <h2>建造工具</h2>
+        <div class="tower-buttons">
+          <button class="tower-button active" data-tower="arrow">
+            <span class="tower-name">箭塔</span>
+            <span class="tower-desc">单体输出，攻速快</span>
+            <span class="tower-cost">花费：60</span>
+          </button>
+          <button class="tower-button" data-tower="frost">
+            <span class="tower-name">霜塔</span>
+            <span class="tower-desc">范围减速，延迟敌军</span>
+            <span class="tower-cost">花费：75</span>
+          </button>
+          <button class="tower-button" data-tower="blast">
+            <span class="tower-name">爆破塔</span>
+            <span class="tower-desc">溅射伤害，适合群体</span>
+            <span class="tower-cost">花费：90</span>
+          </button>
+        </div>
+
+        <section class="panel" id="tower-panel">
+          <h3>塔信息</h3>
+          <div class="panel__body" id="tower-info">点击己方塔查看详情</div>
+        </section>
+
+        <section class="panel">
+          <h3>快捷提示</h3>
+          <ul class="tips">
+            <li>黄色瓷砖可以建造，点击放置选中的塔。</li>
+            <li>选中己方塔后可升级，升级成本按等级提升。</li>
+            <li>波次间隙会获得少量奖励金币。</li>
+            <li>按 R 立即重开当前地图。</li>
+          </ul>
+        </section>
+      </aside>
+    </main>
+
+    <div class="modal" id="map-modal">
+      <div class="modal__dialog">
+        <h2>选择地图</h2>
+        <p>不同路径会影响敌军行进路线，请谨慎选择。</p>
+        <div class="map-grid">
+          <button class="map-option" data-map="z">Z 形通道</button>
+          <button class="map-option" data-map="snake">蛇形通道</button>
+          <button class="map-option" data-map="spiral">螺旋通道</button>
+          <button class="map-option" data-map="ring">环形通道</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal hidden" id="bestia-modal">
+      <div class="modal__dialog wide">
+        <h2>怪物图鉴</h2>
+        <p>了解敌军属性，合理分配防线。</p>
+        <div id="bestia-list" class="bestia-list"></div>
+        <button class="close" data-close="bestia-modal">关闭</button>
+      </div>
+    </div>
+
+    <div class="modal hidden" id="help-modal">
+      <div class="modal__dialog">
+        <h2>玩法提示</h2>
+        <ul class="tips">
+          <li>不同塔有专精方向，组合搭配才能守住更高波次。</li>
+          <li>波次末尾会出现 Boss，请提前留足输出。</li>
+          <li>金币不足时请合理卖塔重建（暂不支持撤销）。</li>
+          <li>移动端建议横屏游玩，点击缩放区域进行操作。</li>
+        </ul>
+        <button class="close" data-close="help-modal">了解了</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
